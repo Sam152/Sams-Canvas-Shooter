@@ -3,6 +3,19 @@
 function Position (x,y) {
 	this.x = x;
 	this.y = y;
+
+	this.near = function(otherPosition,radius){
+
+		var x1 = this.x;
+		var y1 = this.y;
+
+		var x2 = otherPosition.x;
+		var y2 = otherPosition.y;
+
+		return (Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2)) <= radius);
+
+	}
+
 }
 
 //Prelaod Images

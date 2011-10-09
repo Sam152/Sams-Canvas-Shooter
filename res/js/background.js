@@ -1,7 +1,7 @@
 function Background(image){
 
 
-	var backgroundSpeed = 3;
+	var backgroundSpeed = 2;
 	var bgImage = new Image();
 	bgImage.src = img_src+image;
 
@@ -25,8 +25,8 @@ function Background(image){
 		loopCount += backgroundSpeed;
 
 
-		for(var i = -bleed;i < (gameWidth / width) + bleed;i++){
-			for(var n = -bleed;n < (gameHeight / height) + bleed;n++){
+		for(var i = 0;i < (gameWidth / width);i++){
+			for(var n = -bleed;n < (gameHeight / height);n++){
 
 				draw(
 					i*width,
@@ -38,9 +38,4 @@ function Background(image){
 			}
 		}
 	}
-
-
-
-
-
 }

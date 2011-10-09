@@ -15,6 +15,8 @@ function Sprite (src,width) {
 	var width = width;
 	var image = new Image();
 
+	var lastSeen = new Position(0,0);
+
 	image.src = img_src+src;
 
 	this.draw = function(position){
@@ -33,7 +35,8 @@ function Sprite (src,width) {
 			width,
 			image.height
 		);
-
+		
+		lastSeen = position;
 	};
 
 	this.getWidth = function(){
@@ -42,5 +45,9 @@ function Sprite (src,width) {
 
 	this.getHeight = function(){
 		return image.height;
+	}
+	
+	this.getCenter = function(){
+		return new Position(lastSeen.x + (this.getHeight() / 2),lastSeen.y + (this.getWidth() / 2));
 	}
 }

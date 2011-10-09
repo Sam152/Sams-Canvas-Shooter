@@ -29,6 +29,10 @@ function Enemies(){
 			spawnPlane();
 		}
 	}
+
+	this.getPlanes = function(){
+		return planes;
+	}
 }
 
 
@@ -44,18 +48,36 @@ function Enemy(){
 		random(0,gameWidth),
 		-sprite.getHeight()
 	);
+	
+	var alive = true;
 
 	function draw(){
 		sprite.draw(position);
 	}
 
-	this.tick = function(){
+	this.tick = function(){		
+		if(alive){
+			position.x += speed_x;
+			position.y += speed_y;
 
-		position.x += speed_x;
-		position.y += speed_y;
-
-		draw();
+			draw();
+		}
 	}
 
+	this.getPosition = function(){
+		return position;
+	}
 
+	this.destroy = function(){
+		alive = false;
+		position = null;
+	}
+	
+	this.isAlive = function(){
+		return alive;
+	}
+	
+	this.getSprite = function(){
+		return sprite;
+	}
 }
