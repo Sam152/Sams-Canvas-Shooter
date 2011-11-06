@@ -5,7 +5,8 @@ function Enemies(){
 	var planes = new Array();
 	var renderedPlanes = 0;
 	var totalPlanes = 0;
-	var allowedPlanes = 15;
+	var allowedPlanes = 30;
+	var spawnFrequency = 15;
 
 	function spawnPlane(){
 
@@ -25,7 +26,7 @@ function Enemies(){
 			planes[i].tick();
 		}
 
-		if(frameCount % 5 == 0){
+		if(frameCount % spawnFrequency == 0){
 			spawnPlane();
 		}
 	}
@@ -41,8 +42,15 @@ function Enemy(){
 
 	var sprite = new Sprite("enemy"+random(1,3)+".png",32);
 
-	var speed_x = random(-3,3);
-	var speed_y = random(10,20);
+	var planeSpeed = 5;
+	var planeSpeedVariance = 2;
+
+	var speed_x = random(-Math.floor(planeSpeedVariance / 1),Math.floor(planeSpeedVariance / 1));
+	var speed_y = random(planeSpeed - planeSpeedVariance,planeSpeed + planeSpeedVariance);
+		
+	var plane_angle = Math.atan2(speed_x,speed_y);
+
+	sprite.setRotation(-plane_angle);
 
 	var position = new Position(
 		random(0,gameWidth),

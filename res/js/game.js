@@ -7,7 +7,6 @@ function Game () {
 
 
 	this.tick = function(){
-
 		
 		background.tick();
 		player.tick();

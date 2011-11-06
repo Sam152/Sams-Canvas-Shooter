@@ -1,7 +1,7 @@
-function Background(image){
+function UI(image){
 
 
-	var backgroundSpeed = 1;
+	var backgroundSpeed = 2;
 	var bgImage = new Image();
 	bgImage.src = img_src+image;
 

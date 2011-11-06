@@ -7,7 +7,9 @@ function Player () {
 	var renderedBullets = 0;
 	var totalBullets = 0;
 	var bulletSpeed = 30;
-	var fireRate = 5;
+	var fireRate = 333;
+	
+	var lastFired = milliseconds();
 
     var position = new Position(
 		(gameWidth / 2) - (sprite.getWidth() / 2),
@@ -48,8 +50,9 @@ function Player () {
 		else if(position.x < 0)
 			position.x = 0;
 
-		if(control.space && frameCount % fireRate == 0){
+		if(control.space && milliseconds() - lastFired > fireRate){
 			fireBullet();
+			lastFired = milliseconds();
 		}
 
 		draw();

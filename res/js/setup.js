@@ -4,11 +4,20 @@ frameCount = 0;
 
 preload("bullet.png");
 preload("snow.jpg");
-preload("bullet.png");
 
 
 $(window).load(function(){
 
+	//A pretty crude frame rate limiter (accounting for the fact there is no sleep in javascript
+	//and the use of a while(1) is bad practice and drains the CPU.
+	var framesPerSeond = 30;
+	var frameStart;
+	var frameEnd;
+	var frameTime;
+	var nextTimeout = 0;
+	var millisecondFrameTime = 1000 / framesPerSeond;
+
+	//Make our canvas the size of the browser window
 	gameWidth = window.innerWidth;
 	gameHeight = window.innerHeight;
 
@@ -18,18 +27,32 @@ $(window).load(function(){
 	context.canvas.width  = gameWidth;
 	context.canvas.height = gameHeight;
 
-	//Our game object
+	//Our gameplay object that will handle all of our gameplay elements
 	game = new Game();
 
 	function gameLoop(){
 
+		frameStart = milliseconds();
+
 		context.canvas.width  = window.innerWidth;
 		context.canvas.height = window.innerHeight;
 		context.clearRect(0,0,500,500);
-		//Run all our game logic and abstract out all the junk
+		//Run all our game logic and abstract out all the messy stuff
 		game.tick();
 		frameCount++;
-		setTimeout(gameLoop,0);
+		setTimeout(gameLoop,nextTimeout);
+		
+		frameEnd = milliseconds();
+		
+		frameTime = frameEnd - frameStart;
+		
+		if(frameTime > millisecondFrameTime){
+			nextTimeout = 0;
+			console.log('Performance is sucking! I need to go optimise my code.');
+		}else{
+			nextTimeout = millisecondFrameTime - frameTime;
+		}
+		
 
 	}
 

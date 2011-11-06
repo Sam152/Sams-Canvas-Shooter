@@ -27,4 +27,9 @@ function preload(url){
 //random range
 function random(from, to){
        return Math.floor(Math.random() * (to - from + 1) + from);
-    }
+}
+
+//Get the current Date objects milliseconds
+function milliseconds(){
+	return (new Date).getTime();
+}
