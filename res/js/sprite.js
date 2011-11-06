@@ -20,7 +20,7 @@ function Sprite (src,width) {
 	var total_states = image.width / width;
 
 	this.draw = function(position){
-		
+
 		last_seen = position;
 
 		var source_x = width * this.state;
@@ -36,8 +36,6 @@ function Sprite (src,width) {
 			drawPosition.x = -this.getWidth() / 2;
 			drawPosition.y = -this.getHeight() / 2;
 		}
-		
-		console.log(drawPosition.x);
 
 		context.drawImage(
 			image,
@@ -50,10 +48,10 @@ function Sprite (src,width) {
 			width,
 			image.height
 		);
-		
+
 		context.restore();
-		
-		//context.fillRect(position.x-1,position.y-1,position.x+1,position.y+1);		
+
+		//context.fillRect(position.x-1,position.y-1,position.x+1,position.y+1);
 
 	};
 
@@ -64,7 +62,7 @@ function Sprite (src,width) {
 	this.getHeight = function(){
 		return image.height;
 	}
-	
+
 	this.setRotation = function(in_angle){
 		image_rotation = in_angle;
 	}

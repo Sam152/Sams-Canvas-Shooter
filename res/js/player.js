@@ -1,13 +1,13 @@
 function Player () {
 
-	var speed = 10;
+	var speed = 15;
 	var sprite = new Sprite("plane.png?",65);
 	var bullets = new Array();
 	var allowedBullets = 10;
 	var renderedBullets = 0;
 	var totalBullets = 0;
 	var bulletSpeed = 30;
-	var fireRate = 333;
+	var fireRate = 200;
 	
 	var lastFired = milliseconds();
 

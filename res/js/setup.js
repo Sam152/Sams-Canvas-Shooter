@@ -6,7 +6,8 @@ preload("bullet.png");
 preload("snow.jpg");
 
 
-$(window).load(function(){
+window.onload = function(){
+	
 
 	//A pretty crude frame rate limiter (accounting for the fact there is no sleep in javascript
 	//and the use of a while(1) is bad practice and drains the CPU.
@@ -24,6 +25,9 @@ $(window).load(function(){
 	canvas = document.getElementById("game");
 	context = canvas.getContext("2d");
 
+	//Enable our canvas text library
+	CanvasTextFunctions.enable(context);
+	
 	context.canvas.width  = gameWidth;
 	context.canvas.height = gameHeight;
 
@@ -57,4 +61,4 @@ $(window).load(function(){
 	}
 
 	setTimeout(gameLoop,0);
-});
+}
