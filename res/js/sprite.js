@@ -51,8 +51,6 @@ function Sprite (src,width) {
 
 		context.restore();
 
-		//context.fillRect(position.x-1,position.y-1,position.x+1,position.y+1);
-
 	};
 
 	this.getWidth = function(){

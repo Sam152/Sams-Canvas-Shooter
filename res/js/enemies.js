@@ -6,7 +6,7 @@ function Enemies(){
 	var renderedPlanes = 0;
 	var totalPlanes = 0;
 	var allowedPlanes = 30;
-	var spawnFrequency = 15;
+	var spawnFrequency = 150;
 
 	function spawnPlane(){
 
@@ -42,6 +42,9 @@ function Enemy(){
 
 	var sprite = new Sprite("enemy"+random(1,3)+".png",32);
 
+	//1 for fine, 2 for exploding
+	var state = 1;
+	
 	var planeSpeed = 5;
 	var planeSpeedVariance = 2;
 
@@ -49,6 +52,36 @@ function Enemy(){
 	var speed_y = random(planeSpeed - planeSpeedVariance,planeSpeed + planeSpeedVariance);
 		
 	var plane_angle = Math.atan2(speed_x,speed_y);
+	
+	var enemy = this;
+	
+	var Explosion = function(){
+		
+		var boom = new Sprite("boom.png",32);
+		var tickCount = 0;
+		
+		this.draw = function(position,enemy,sprite){
+			
+			if(tickCount > 5){
+				enemy.removeFromScreen();
+			}else{
+			
+				if(tickCount < 4)
+					enemy.draw();
+				
+				enemy.speed_x /= 2;
+				enemy.speed_y /= 2;
+			
+				boom.state = tickCount;
+				
+				boom.draw(position);
+				tickCount++;
+			}
+		}
+	
+	}
+	
+	var destroyExplosion = new Explosion();
 
 	sprite.setRotation(-plane_angle);
 
@@ -59,7 +92,7 @@ function Enemy(){
 	
 	var alive = true;
 
-	function draw(){
+	this.draw = function(){
 		sprite.draw(position);
 	}
 
@@ -68,7 +101,11 @@ function Enemy(){
 			position.x += speed_x;
 			position.y += speed_y;
 
-			draw();
+
+			if(state == 1)
+				this.draw();
+			else if(state == 2)
+				destroyExplosion.draw(position,enemy,sprite);
 		}
 	}
 
@@ -77,8 +114,8 @@ function Enemy(){
 	}
 
 	this.destroy = function(){
-		alive = false;
-		position = null;
+		
+		state = 2;
 	}
 	
 	this.isAlive = function(){
@@ -87,5 +124,13 @@ function Enemy(){
 	
 	this.getSprite = function(){
 		return sprite;
+	}
+	
+	this.removeFromScreen = function(){
+		
+		console.log('Removing');
+	
+		alive = false;
+		position = null;
 	}
 }
